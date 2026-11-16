@@ -1,6 +1,8 @@
 # uasppb
 
-Project Flutter UAS
+Project UAS PPB
+
+Nama Aplikasi: LokaKampus
 
 ## Getting Started
 
