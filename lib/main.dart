@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,6 +11,21 @@ Future<void> main() async {
   );
 
   runApp(const LokaKampusApp());
+
+  try {
+  final room = await FirebaseFirestore.instance
+      .collection('rooms')
+      .doc('5B104')
+      .get(const GetOptions(source: Source.server));
+
+  if (room.exists) {
+    debugPrint('Berhasil membaca Firestore: ${room.data()?['namaRuangan']}');
+  } else {
+    debugPrint('Dokumen rooms/5B104 belum ditemukan.');
+  }
+} on FirebaseException catch (error) {
+  debugPrint('Gagal membaca Firestore: ${error.code}');
+}
 }
 
 class LokaKampusApp extends StatelessWidget {
